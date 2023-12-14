@@ -9,6 +9,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int height = 55;
+  int weight = 75;
+  double bmivalue = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,8 +21,8 @@ class _MainPageState extends State<MainPage> {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             color: Colors.white,
-            child: const Column(children: [
-              Row(
+            child: Column(children: [
+              const Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
@@ -44,31 +48,44 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Text(
-                          "176",
+                          "$height",
                           style: kTextstyle,
                         ),
-                        Text("Height"),
+                        const Text("Height"),
                         Row(
                           children: [
                             FloatingActionButton(
-                              onPressed: null,
+                              onPressed: () {
+                                setState(() {
+                                  if (height < 250) height++;
+                                  bmicalculate(height: height, weight: weight);
+                                });
+
+                                print(height);
+                              },
                               child: kbuttonstyleadd,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 25,
                             ),
                             FloatingActionButton(
-                              onPressed: null,
+                              onPressed: () {
+                                setState(() {
+                                  if (height > 50) height--;
+                                  bmicalculate(height: height, weight: weight);
+                                });
+                                print(height);
+                              },
                               child: kbuttonstyleremove,
                             ),
                           ],
@@ -76,24 +93,37 @@ class _MainPageState extends State<MainPage> {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Text("85", style: kTextstyle),
-                        Text("Weight"),
+                        Text("$weight", style: kTextstyle),
+                        const Text("Weight"),
                         Row(
                           children: [
                             FloatingActionButton(
-                              onPressed: null,
+                              onPressed: () {
+                                setState(() {
+                                  if (weight < 200) weight++;
+                                  bmicalculate(height: height, weight: weight);
+                                });
+                              },
                               child: kbuttonstyleadd,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 25,
                             ),
                             FloatingActionButton(
-                              onPressed: null,
+                              onPressed: () {
+                                setState(() {
+                                  if (weight > 20) {
+                                    weight--;
+                                    bmicalculate(
+                                        height: height, weight: weight);
+                                  }
+                                });
+                              },
                               child: kbuttonstyleremove,
                             ),
                           ],
@@ -103,17 +133,17 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Column(
                 children: [
-                  Text(
+                  const Text(
                     "BMI Value",
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "22",
+                    bmivalue.toStringAsFixed(2),
                     style: kTextstyle,
                   ),
                 ],
@@ -124,4 +154,8 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+}
+
+double bmicalculate({required int height, required int weight}) {
+  return (weight / (height * height)) * 1000;
 }
