@@ -9,8 +9,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int height = 55;
-  int weight = 75;
+  int height = 120;
+  int weight = 60;
   String gender = '';
   late double bmivalue = bmicalculate(height: height, weight: weight);
   String result = '';
@@ -85,7 +85,7 @@ class _MainPageState extends State<MainPage> {
                           "$height",
                           style: kTextstyle,
                         ),
-                        const Text("Height"),
+                        const Text("Height(cm)"),
                         Row(
                           children: [
                             FloatingActionButton(
@@ -125,7 +125,7 @@ class _MainPageState extends State<MainPage> {
                     child: Column(
                       children: [
                         Text("$weight", style: kTextstyle),
-                        const Text("Weight"),
+                        const Text("Weight(Kg)"),
                         Row(
                           children: [
                             FloatingActionButton(
@@ -202,7 +202,7 @@ class _MainPageState extends State<MainPage> {
 }
 
 double bmicalculate({required int height, required int weight}) {
-  return (weight / (height * height)) * 1000;
+  return (weight / (height * height)) * 10000;
 }
 
 String getresult(bmivalue) {
