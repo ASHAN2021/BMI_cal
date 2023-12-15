@@ -11,7 +11,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int height = 55;
   int weight = 75;
+  String gender = '';
   late double bmivalue = bmicalculate(height: height, weight: weight);
+  String result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -22,28 +24,50 @@ class _MainPageState extends State<MainPage> {
           child: Container(
             color: Colors.white,
             child: Column(children: [
-              const Row(
+              Row(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.male,
-                          size: 150,
-                        ),
-                        Text("MALE")
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      print("Male");
+                      setState(() {
+                        gender = 'M';
+                      });
+                    },
+                    child: Container(
+                      color: gender == 'M'
+                          ? Colors.orange.withAlpha(150)
+                          : Colors.orange.withAlpha(20),
+                      padding: EdgeInsets.all(8.0),
+                      child: const Column(
+                        children: [
+                          Icon(
+                            Icons.male,
+                            size: 150,
+                          ),
+                          Text("MALE")
+                        ],
+                      ),
                     ),
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Icon(Icons.female, size: 150),
-                        Text("FEMALE"),
-                      ],
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      print("Female");
+                      setState(() {
+                        gender = 'F';
+                      });
+                    },
+                    child: Container(
+                      color: gender == 'F'
+                          ? Colors.orange.withAlpha(150)
+                          : Colors.orange.withAlpha(20),
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Column(
+                        children: [
+                          Icon(Icons.female, size: 150),
+                          Text("FEMALE"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -149,6 +173,20 @@ class _MainPageState extends State<MainPage> {
                     bmivalue.toStringAsFixed(2),
                     style: kTextstyle,
                   ),
+                  Container(
+                    height: 100,
+                    width: double.infinity,
+                    color: Colors.green,
+                    child: Center(
+                      child: Text(
+                        getresult(bmivalue),
+                        style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
                 ],
               )
             ]),
@@ -161,4 +199,14 @@ class _MainPageState extends State<MainPage> {
 
 double bmicalculate({required int height, required int weight}) {
   return (weight / (height * height)) * 1000;
+}
+
+String getresult(bmivalue) {
+  if (bmivalue >= 25) {
+    return 'overweight';
+  } else if (bmivalue >= 18.5) {
+    return 'normal';
+  } else {
+    return 'underweight';
+  }
 }
