@@ -11,7 +11,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int height = 55;
   int weight = 75;
-  double bmivalue = 0;
+  late double bmivalue = bmicalculate(height: height, weight: weight);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,8 @@ class _MainPageState extends State<MainPage> {
                               onPressed: () {
                                 setState(() {
                                   if (height < 250) height++;
-                                  bmicalculate(height: height, weight: weight);
+                                  bmivalue = bmicalculate(
+                                      height: height, weight: weight);
                                 });
 
                                 print(height);
@@ -82,7 +83,8 @@ class _MainPageState extends State<MainPage> {
                               onPressed: () {
                                 setState(() {
                                   if (height > 50) height--;
-                                  bmicalculate(height: height, weight: weight);
+                                  bmivalue = bmicalculate(
+                                      height: height, weight: weight);
                                 });
                                 print(height);
                               },
@@ -106,7 +108,8 @@ class _MainPageState extends State<MainPage> {
                               onPressed: () {
                                 setState(() {
                                   if (weight < 200) weight++;
-                                  bmicalculate(height: height, weight: weight);
+                                  bmivalue = bmicalculate(
+                                      height: height, weight: weight);
                                 });
                               },
                               child: kbuttonstyleadd,
@@ -119,7 +122,7 @@ class _MainPageState extends State<MainPage> {
                                 setState(() {
                                   if (weight > 20) {
                                     weight--;
-                                    bmicalculate(
+                                    bmivalue = bmicalculate(
                                         height: height, weight: weight);
                                   }
                                 });
