@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
                       color: gender == 'M'
                           ? Colors.orange.withAlpha(150)
                           : Colors.orange.withAlpha(20),
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: const Column(
                         children: [
                           Icon(
@@ -176,12 +176,16 @@ class _MainPageState extends State<MainPage> {
                   Container(
                     height: 100,
                     width: double.infinity,
-                    color: Colors.green,
+                    color: result == 'underweight'
+                        ? Colors.yellow
+                        : result == 'normal'
+                            ? Colors.green
+                            : Colors.red,
                     child: Center(
                       child: Text(
-                        getresult(bmivalue),
+                        result = getresult(bmivalue),
                         style: const TextStyle(
-                            color: Colors.red,
+                            color: Colors.black,
                             fontSize: 50,
                             fontWeight: FontWeight.bold),
                       ),
@@ -202,11 +206,15 @@ double bmicalculate({required int height, required int weight}) {
 }
 
 String getresult(bmivalue) {
+  String result = '';
   if (bmivalue >= 25) {
-    return 'overweight';
+    result = 'overweight';
+    return result;
   } else if (bmivalue >= 18.5) {
-    return 'normal';
+    result = 'normal';
+    return result;
   } else {
-    return 'underweight';
+    result = 'underweight';
+    return result;
   }
 }
